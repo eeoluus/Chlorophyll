@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/calendarFragment">
+
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.chlorophyll.ui.CalendarFragment"
+        android:label="@string/calendar_fragment_label"
+        tools:layout="@layout/fragment_calendar">
+        <action
+            android:id="@+id/action_calendarFragment_to_createProfileFragment"
+            app:destination="@id/createProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/createProfileFragment"
+        android:name="com.example.chlorophyll.ui.CreateProfileFragment"
+        android:label="@string/create_profile_fragment_label"
+        tools:layout="@layout/fragment_create_profile">
+        <argument
+            android:name="start"
+            app:argType="long" />
+        <action
+            android:id="@+id/action_createProfileFragment_to_calendarFragment"
+            app:destination="@id/calendarFragment"
+            app:popUpTo="@id/calendarFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

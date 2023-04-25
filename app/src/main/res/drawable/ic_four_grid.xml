@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:top="40dp"
+        android:gravity="bottom|left"
+        android:tint="@android:color/holo_blue_dark"
+        android:drawable="@drawable/ic_dot"/>
+
+    <item
+        android:gravity="bottom|right"
+        android:tint="@android:color/holo_red_dark"
+        android:drawable="@drawable/ic_dot"/>
+
+    <item
+        android:right="40dp"
+        android:gravity="top|left"
+        android:tint="@android:color/holo_green_dark"
+        android:drawable="@drawable/ic_dot"/>
+
+    <item
+        android:gravity="top|right"
+        android:tint="#a87311"
+        android:drawable="@drawable/ic_dot"/>
+
+</layer-list>

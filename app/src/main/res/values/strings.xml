@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Chlorophyll</string>
+    <string name="channel_name">Watering notifications</string>
+    <string name="channel_description">This is used to notify you about plant hydration.</string>
+    <string name="watering_notification_title">It\'s morbin\'… sorry, watering time!</string>
+    <string name="watering_notification">needs watering</string>
+    <string name="watering">watering</string>
+    <string name="need_third_plural">need</string>
+    <string name="need_third_singular">needs</string>
+    <string name="and">and</string>
+    <string name="others">others</string>
+    <string name="alarms_canceled">Watering alarms have been canceled</string>
+    <string name="alarms_added">Watering alarms have been added with the set interval</string>
+    <string name="profile_added">added</string>
+    <string name="profile_deleted">deleted</string>
+    <string name="all_deleted">All plants deleted</string>
+    <string name="next_button">Next</string>
+    <string name="let_us_go_button">Let\'s go!</string>
+    <string name="delete_profile_button">Delete profile</string>
+    <string name="create_profile_prompt"><i>Your plant\'s name?</i></string>
+    <string name="days_between_watering">Days between watering:</string>
+    <string name="emergency_nuke">Nuke all</string>
+    <string name="create_profile_fragment_label">Create Profile</string>
+    <string name="calendar_fragment_label">Chlorophyll</string>
+    <string name="additional_info"><i>Additional information</i></string>
+</resources>

@@ -1,0 +1,15 @@
+<resources>
+
+    <style name="Theme.Chlorophyll" parent="Theme.AppCompat.DayNight">
+        <item name="android:fontFamily">@font/sen_regular</item>
+    </style>
+
+    <style name="NumberPickerText">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="EditText">
+        <item name="android:textStyle">italic</item>
+    </style>
+
+</resources>
