@@ -32,7 +32,7 @@ fun eventsFromPlants(plants: List<Plant>): Schedule {
                 copy(date = date)
             }
         }
-        sequence.take(5).forEach(::schedule)
+        sequence.take(30).forEach(::schedule)
     }
     return events
 }

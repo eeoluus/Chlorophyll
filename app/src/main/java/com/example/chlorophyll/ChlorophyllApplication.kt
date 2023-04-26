@@ -41,8 +41,8 @@ class ChlorophyllApplication : Application() {
             with(AlarmScheduler(this)) {
                 val checkTime = Calendar.getInstance().apply {
                     timeInMillis = System.currentTimeMillis()
-                    set(Calendar.HOUR_OF_DAY, 18)
-                    set(Calendar.MINUTE, 20)
+                    set(Calendar.HOUR_OF_DAY, 15)
+                    set(Calendar.MINUTE, 0)
                 }
                 schedule(checkTime)
             }
