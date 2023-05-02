@@ -33,11 +33,11 @@ https://user-images.githubusercontent.com/86976278/234864396-1ce2b071-6970-4b4b-
 
 #### Planned features
  
-- make alarm time customizable
-- add a screen to display event specifics for a selected day
+- [ ] make alarm time customizable
+- [ ] add a screen to display event specifics for a selected day
 
-#### Issues that I intend to fix
+#### Fixed issues
 
-- system boot kills future alarms
-- no support for horizontal views
-- recurring events are only displayed  within a fixed period (30 occurrences each, starting from a fixed date)
+- [x] system boot kills future alarms
+- [ ] no support for horizontal views
+- [ ] recurring events are only displayed  within a fixed period (30 occurrences each, starting from a fixed date)
