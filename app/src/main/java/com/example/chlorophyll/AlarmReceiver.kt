@@ -67,7 +67,8 @@ class AlarmReceiver : BroadcastReceiver() {
         }
         with(AlarmScheduler(context.applicationContext)) {
             val nextCheckTime = Calendar.getInstance().apply {
-                timeInMillis = System.currentTimeMillis()
+                set(Calendar.HOUR_OF_DAY, 1)
+                set(Calendar.MINUTE, 30)
                 add(Calendar.HOUR_OF_DAY, 24)
             }
             schedule(nextCheckTime)
