@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.chlorophyll.ChlorophyllApplication
+import com.example.chlorophyll.data.SettingsDataStore
 import com.example.chlorophyll.databinding.FragmentCreateProfileBinding
 import com.example.chlorophyll.viewmodels.ChlorophyllViewModel
 import com.example.chlorophyll.viewmodels.ChlorophyllViewModelFactory
@@ -19,16 +20,18 @@ import java.util.*
 import kotlin.properties.Delegates
 import kotlin.random.Random
 
-
 class CreateProfileFragment : Fragment(), OnClickListener, OnFocusChangeListener {
 
     companion object {
         const val START = "start"
     }
     private val sharedViewModel: ChlorophyllViewModel by activityViewModels {
-        ChlorophyllViewModelFactory(
-            (activity?.application as ChlorophyllApplication).database.plantDao,
-        )
+        (activity?.application as ChlorophyllApplication).run {
+            ChlorophyllViewModelFactory(
+                database.plantDao,
+                SettingsDataStore(this)
+            )
+        }
     }
     private var _binding: FragmentCreateProfileBinding? = null
     private val binding get() = _binding!!

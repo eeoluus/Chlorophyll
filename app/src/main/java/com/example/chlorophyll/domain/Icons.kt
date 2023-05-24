@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import com.example.chlorophyll.R
 import com.example.chlorophyll.viewmodels.DayEvents
-
 fun iconFromEvents(context: Context, events: DayEvents): Drawable {
 
     val sizeExtra = R.drawable.ic_four_plus_grid

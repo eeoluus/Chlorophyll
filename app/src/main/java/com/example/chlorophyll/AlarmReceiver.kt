@@ -10,6 +10,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.example.chlorophyll.data.PlantDatabase
+import com.example.chlorophyll.data.SettingsDataStore
 import com.example.chlorophyll.domain.AlarmScheduler
 import com.example.chlorophyll.domain.eventsFromPlants
 import com.example.chlorophyll.domain.formatContentText
@@ -17,6 +18,7 @@ import com.example.chlorophyll.domain.todayEventNames
 import com.example.chlorophyll.ui.MainActivity
 import com.example.chlorophyll.util.*
 import com.example.chlorophyll.util.extensions.broadcastreceiver.goAsync
+import com.example.chlorophyll.util.extensions.calendar.eventWindow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import java.util.*
@@ -30,7 +32,13 @@ class AlarmReceiver : BroadcastReceiver() {
                 .getInstance(context)
                 .plantDao
                 .getAll()
-                .first()
+                .first(),
+            Calendar
+                .getInstance()
+                .eventWindow(SettingsDataStore(context)
+                    .windowPreference
+                    .first()
+                )
         )
         val names = todayEventNames(events)
 
@@ -67,8 +75,8 @@ class AlarmReceiver : BroadcastReceiver() {
         }
         with(AlarmScheduler(context.applicationContext)) {
             val nextCheckTime = Calendar.getInstance().apply {
-                set(Calendar.HOUR_OF_DAY, 1)
-                set(Calendar.MINUTE, 30)
+                set(Calendar.HOUR_OF_DAY, DEFAULT_REMINDER_HOUR_OF_DAY)
+                set(Calendar.MINUTE, DEFAULT_REMINDER_MINUTE)
                 add(Calendar.HOUR_OF_DAY, 24)
             }
             schedule(nextCheckTime)

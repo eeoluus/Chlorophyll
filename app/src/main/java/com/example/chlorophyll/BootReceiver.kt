@@ -7,6 +7,7 @@ import com.example.chlorophyll.data.SettingsDataStore
 import com.example.chlorophyll.domain.AlarmScheduler
 import com.example.chlorophyll.util.extensions.broadcastreceiver.goAsync
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import java.util.*
 
 class BootReceiver : BroadcastReceiver() {
@@ -15,7 +16,8 @@ class BootReceiver : BroadcastReceiver() {
 
         if (intent.action == Intent.ACTION_BOOT_COMPLETED) {
 
-            val (hourOfDay, minute) = SettingsDataStore(context).retrieveReminderTime()
+            val (hourOfDay, minute) =
+                SettingsDataStore(context).reminderTimePreference.first()
 
             with(AlarmScheduler(context)) {
                 val checkTime = Calendar.getInstance().apply {

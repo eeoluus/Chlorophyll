@@ -8,6 +8,7 @@ import com.example.chlorophyll.data.PlantDatabase
 import com.example.chlorophyll.data.SettingsDataStore
 import com.example.chlorophyll.domain.AlarmScheduler
 import com.example.chlorophyll.util.CHANNEL_ID
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import java.util.*
 
@@ -16,11 +17,10 @@ class ChlorophyllApplication : Application() {
     val database: PlantDatabase by lazy {
         PlantDatabase.getInstance(this)
     }
-
     private suspend fun ifNotNotificationsSet() {
         with(SettingsDataStore(this)) {
-            if (!existActiveReminders()) {
-                val (hourOfDay, minute) = retrieveReminderTime()
+            if (remindersActivePreference.first()) {
+                val (hourOfDay, minute) = reminderTimePreference.first()
                 val checkTime = Calendar.getInstance().apply {
                     timeInMillis = System.currentTimeMillis()
                     set(Calendar.HOUR_OF_DAY, hourOfDay)

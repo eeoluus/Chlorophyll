@@ -3,25 +3,43 @@ package com.example.chlorophyll.viewmodels
 import androidx.lifecycle.*
 import com.example.chlorophyll.data.Plant
 import com.example.chlorophyll.data.PlantDao
+import com.example.chlorophyll.data.SettingsDataStore
 import com.example.chlorophyll.domain.eventsFromPlants
 import com.example.chlorophyll.util.extensions.calendar.*
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
 import java.lang.IllegalArgumentException
 import kotlinx.coroutines.launch
 import java.util.Calendar
 
+typealias Window = Pair<Calendar, Calendar>
+typealias Event = Plant
 typealias DayEvents = MutableList<Event>
 typealias Schedule = MutableMap<Calendar, DayEvents>
 
-typealias Event = Plant
+class ChlorophyllViewModel(
+    private val plantDao: PlantDao,
+    dataStore: SettingsDataStore
+) : ViewModel() {
 
-class ChlorophyllViewModel(private val plantDao: PlantDao) : ViewModel() {
+    private val plantsFlow = plantDao.getAll()
 
-    val schedule = plantDao
-        .getAll()
-        .map(::eventsFromPlants)
+    private val specFlow = dataStore.windowPreference
+
+    private val scheduleFlow = combine(
+        plantsFlow,
+        specFlow
+    ) { plants, spec ->
+        return@combine Calendar.getInstance().eventWindow(spec).run {
+            eventsFromPlants(plants, this)
+        }
+    }
+    val schedule = scheduleFlow
+        .flowOn(Dispatchers.Default)
+        .conflate()
         .asLiveData()
 
+    val spec = specFlow.asLiveData()
     private fun insertPlant(plant: Plant) {
         viewModelScope.launch {
             plantDao.insert(plant)
@@ -52,13 +70,14 @@ class ChlorophyllViewModel(private val plantDao: PlantDao) : ViewModel() {
 }
 
 class ChlorophyllViewModelFactory(
-    private val plantDao: PlantDao
+    private val plantDao: PlantDao,
+    private val dataStore: SettingsDataStore
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ChlorophyllViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return ChlorophyllViewModel(plantDao) as T
+            return ChlorophyllViewModel(plantDao, dataStore) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
